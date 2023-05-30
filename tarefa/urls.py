@@ -8,5 +8,5 @@ router.register('tasks', ListasTarefasViewSet, basename='Tarefas')
 
 urlpatterns = [
 #    path('', index, name='index'),
-    path('', include(router.urls) ),
+    path('', include(router.urls)),
 ]
