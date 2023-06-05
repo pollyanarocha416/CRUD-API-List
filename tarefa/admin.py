@@ -1,5 +1,5 @@
 from django.contrib import admin
-from tarefa.models import ListarTarefa, Usuario
+from tarefa.models import ListarTarefa, Usuario, TasksUsuario
 
 class Listandotarefas(admin.ModelAdmin):
     list_display = ('id', 'tasks', 'descricao', 'data_criacao')
@@ -14,3 +14,10 @@ class Usuarios(admin.ModelAdmin):
     search_fields = ('nome',)
     list_per_page = 20
 admin.site.register(Usuario, Usuarios)
+
+class ListaUsuariosPortasks(admin.ModelAdmin):
+    list_display = ('id', 'usuarios', 'tarefas')
+    list_display_links = ('id', 'usuarios')
+    search_fields = ('usuarios',)
+    list_per_page = 20
+admin.site.register(TasksUsuario, ListaUsuariosPortasks)

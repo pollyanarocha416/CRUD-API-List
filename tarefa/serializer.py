@@ -1,5 +1,5 @@
 from rest_framework import serializers, generics
-from tarefa.models import ListarTarefa, Usuario
+from tarefa.models import ListarTarefa, Usuario, TasksUsuario
 
 class ListarTarefasSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,3 +14,8 @@ class UsuarioSerializer(serializers.ModelSerializer):
 class UsuarioCreateView(generics.CreateAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
+
+class TasksUsuariosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TasksUsuario
+        fields = ['id', 'tarefas', 'usuarios']
