@@ -9,7 +9,7 @@ class Listandotarefas(admin.ModelAdmin):
 admin.site.register(ListarTarefa, Listandotarefas)
 
 class Usuarios(admin.ModelAdmin):
-    list_display = ('id', 'nome', 'idade', 'email', 'tarefa')
+    list_display = ('id', 'nome', 'idade', 'email')
     list_display_links = ('id', 'nome')
     search_fields = ('nome',)
     list_per_page = 20

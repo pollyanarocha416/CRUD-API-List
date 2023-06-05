@@ -8,19 +8,22 @@ class ListarTarefasSerializer(serializers.ModelSerializer):
 
 class UsuarioSerializer(serializers.ModelSerializer):
     tasks = serializers.SerializerMethodField()
-
+    tarefas = ListarTarefasSerializer(many=True, read_only=True)
+    
     class Meta:
         model = Usuario
-        fields = ['id', 'nome', 'idade', 'email', 'tarefa', 'tasks']
-
+        fields = ['id', 'nome', 'idade', 'email', 'tarefa', 'tasks', 'tarefas']
+    
     def get_tasks(self, obj):
-        return obj.tarefa.tasks if obj.tarefa else None
+        return [tarefa.tasks for tarefa in obj.tarefa.all()] if obj.tarefa.exists() else None
 
 class UsuarioCreateView(generics.CreateAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
 class TasksUsuariosSerializer(serializers.ModelSerializer):
+    usuarios = UsuarioSerializer(many=True, read_only=True)
+
     class Meta:
         model = TasksUsuario
-        fields = ['id', 'tarefas', 'usuarios']
+        fields = ['id', 'usuarios', 'tasks']
