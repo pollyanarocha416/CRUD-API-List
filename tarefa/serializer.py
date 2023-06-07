@@ -4,7 +4,7 @@ from tarefa.models import ListarTarefa, Usuario, TasksUsuario
 class ListarTarefasSerializer(serializers.ModelSerializer):
     class Meta:
         model = ListarTarefa
-        fields = ['id', 'tasks', 'descricao', 'data_criacao']
+        fields = ['id', 'tasks', 'descricao', 'data_criacao', 'concluida']
 
 class UsuarioSerializer(serializers.ModelSerializer):
     tasks = serializers.SerializerMethodField()

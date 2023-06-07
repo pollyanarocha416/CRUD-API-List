@@ -6,9 +6,16 @@ class ListarTarefa(models.Model):
     tasks = models.CharField(max_length=30)
     descricao= models.CharField(max_length=45)
     data_criacao = models.DateField()
+    concluida = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.tasks
+    
+    def status(self):
+        if self.concluida:
+            return "concluída"
+        else:
+            return "pendente"
 
 class Usuario(models.Model):
     """Criar um model de usuario que retorna o usuario e quais sao as tarefas dele"""
