@@ -1,10 +1,13 @@
 from rest_framework import serializers, generics
 from tarefa.models import ListarTarefa, Usuario, TasksUsuario
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+
 
 class ListarTarefasSerializer(serializers.ModelSerializer):
     class Meta:
         model = ListarTarefa
-        fields = ['id', 'tasks', 'descricao', 'data_criacao']
+        fields = ['id', 'tasks', 'descricao', 'data_criacao', 'concluida']
 
 class UsuarioSerializer(serializers.ModelSerializer):
     tasks = serializers.SerializerMethodField()
