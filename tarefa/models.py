@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+
 class ListarTarefa(models.Model):
     """ Criar um model de tarefas que Retorna todas as tarefas da lista."""
     tasks = models.CharField(max_length=30)
