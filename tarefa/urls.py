@@ -10,9 +10,9 @@ router.register('tasks', ListasTarefasViewSet, basename='Tarefas')
 router.register('usuario', UsuarioViewSet, basename='Usuario')
 
 urlpatterns = [
-    path('', ApiRootViewSet.as_view({'get': 'list'}), name='api-root'),
-    path('tarefas/concluidas/', TarefasConcluidasView.as_view(), name='tarefas-concluidas'),
     path('', include(router.urls)),
     path('usuario/', UsuarioCreateView.as_view(), name='criar-usuario'),
     path('tasks/<int:id>/usuarios/', TasksUsuariosView.as_view(), name='tasks_usuarios'),
+    path('', ApiRootViewSet.as_view({'get': 'list'}), name='api-root'),
+    path('tarefas/concluidas/', TarefasConcluidasView.as_view(), name='tarefas-concluidas'),
 ]
