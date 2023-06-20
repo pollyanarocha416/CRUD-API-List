@@ -57,6 +57,4 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 class TasksUsuariosView(generics.ListAPIView):
     serializer_class = UsuarioSerializer
 
-    def get_queryset(self):
-        id = self.kwargs['id']
-        return Usuario.objects.filter(id=id)
+    queryset = Usuario.objects.all()

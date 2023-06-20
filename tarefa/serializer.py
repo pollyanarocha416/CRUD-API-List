@@ -24,8 +24,10 @@ class UsuarioCreateView(generics.CreateAPIView):
     serializer_class = UsuarioSerializer
 
 class TasksUsuariosSerializer(serializers.ModelSerializer):
-    usuarios = UsuarioSerializer(many=True, read_only=True)
+    nome = serializers.CharField(source='usuarios.nome')
+    idade = serializers.IntegerField(source='usuarios.idade')
+
 
     class Meta:
         model = TasksUsuario
-        fields = ['id', 'usuarios', 'tasks']
+        fields = ['id', 'nome', 'idade']
