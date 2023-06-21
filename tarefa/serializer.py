@@ -1,12 +1,11 @@
 from rest_framework import serializers, generics
-from tarefa.models import ListarTarefa, Usuario, TasksUsuario
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from tarefa.models import ListarTarefa, Usuario
 
 
 class ListarTarefasSerializer(serializers.ModelSerializer):
     class Meta:
         model = ListarTarefa
-        fields = ['id', 'tasks', 'descricao', 'data_criacao', 'concluida']
+        fields = ['id', 'tasks', 'descricao', 'data_criacao', 'vencimento', 'concluida']
 
 class UsuarioSerializer(serializers.ModelSerializer):
     tasks = serializers.SerializerMethodField()
@@ -23,7 +22,7 @@ class UsuarioCreateView(generics.CreateAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
-class TasksUsuariosSerializer(serializers.ModelSerializer):
+""" class TasksUsuariosSerializer(serializers.ModelSerializer):
     nome = serializers.CharField(source='usuarios.nome')
     idade = serializers.IntegerField(source='usuarios.idade')
 
@@ -31,3 +30,11 @@ class TasksUsuariosSerializer(serializers.ModelSerializer):
     class Meta:
         model = TasksUsuario
         fields = ['id', 'nome', 'idade']
+    
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        return {
+            key: representation[key]
+            for key in representation
+                if key in ['id', 'nome', 'idade']
+        } """
