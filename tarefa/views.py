@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from rest_framework import viewsets, generics, status
-from tarefa.models import ListarTarefa, Usuario, TasksUsuario
-from tarefa.serializer import ListarTarefasSerializer, UsuarioSerializer, TasksUsuariosSerializer
+from tarefa.models import ListarTarefa, Usuario
+from tarefa.serializer import ListarTarefasSerializer, UsuarioSerializer
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -54,9 +54,11 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
+""" 
 class TasksUsuariosView(generics.ListAPIView):
-    serializer_class = UsuarioSerializer
-
+    serializer_class = TasksUsuariosSerializer
+    lookup_field = 'tarefa'  # Atualize o lookup_field para o campo correto
+    
     def get_queryset(self):
-        id = self.kwargs['id']
-        return Usuario.objects.filter(id=id)
+        tarefa_id = self.kwargs['tarefa']  # Use o nome correto do parâmetro de URL
+        return TasksUsuario.objects.filter(id=tarefa_id)  # Filtrar pelo campo tarefa_id """
