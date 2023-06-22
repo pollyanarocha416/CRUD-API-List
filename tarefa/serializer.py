@@ -24,9 +24,20 @@ class UsuarioCreateView(generics.CreateAPIView):
     serializer_class = UsuarioSerializer
 
 
+
+class UsuarioTarefaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ['id', 'nome', 'idade', 'email']
+
 class UsuariosTarefaView(generics.ListAPIView):
-    serializer_class = UsuarioSerializer
+    def get_serializer_class(self):
+        if 'tarefa_id' in self.kwargs:
+            return UsuarioTarefaSerializer
+        return UsuarioSerializer
 
     def get_queryset(self):
-        tarefa_id = self.kwargs['tarefa_id']
-        return Usuario.objects.filter(tarefa=tarefa_id)
+        tarefa_id = self.kwargs.get('tarefa_id')
+        if tarefa_id:
+            return Usuario.objects.filter(tarefa=tarefa_id)
+        return Usuario.objects.all()
