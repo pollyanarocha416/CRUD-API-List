@@ -16,25 +16,17 @@ class UsuarioSerializer(serializers.ModelSerializer):
         fields = ['id', 'nome', 'idade', 'email', 'tarefa', 'tasks', 'tarefas']
     
     def get_tasks(self, obj):
-        return [tarefa.tasks for tarefa in obj.tarefa.all()] if obj.tarefa.exists() else None
+        return [tarefa.id for tarefa in obj.tarefa.all()] if obj.tarefa.exists() else None
+
 
 class UsuarioCreateView(generics.CreateAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
-""" class TasksUsuariosSerializer(serializers.ModelSerializer):
-    nome = serializers.CharField(source='usuarios.nome')
-    idade = serializers.IntegerField(source='usuarios.idade')
 
+class UsuariosTarefaView(generics.ListAPIView):
+    serializer_class = UsuarioSerializer
 
-    class Meta:
-        model = TasksUsuario
-        fields = ['id', 'nome', 'idade']
-    
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
-        return {
-            key: representation[key]
-            for key in representation
-                if key in ['id', 'nome', 'idade']
-        } """
+    def get_queryset(self):
+        tarefa_id = self.kwargs['tarefa_id']
+        return Usuario.objects.filter(tarefa=tarefa_id)
