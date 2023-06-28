@@ -3,7 +3,9 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class ListarTarefa(models.Model):
+    
     """ Criar um model de tarefas que Retorna todas as tarefas da lista."""
+    
     tasks = models.CharField(max_length=30)
     descricao= models.CharField(max_length=45)
     data_criacao = models.DateField()#    YYYY-MM-DD.
@@ -20,16 +22,10 @@ class ListarTarefa(models.Model):
             return "pendente"
 
 class Usuario(models.Model):
+    
     """Criar um model de usuario que retorna o usuario e quais sao as tarefas dele"""
+    
     nome = models.CharField(max_length=30)
     idade = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(120)])
     email = models.EmailField(max_length=254)
     tarefa = models.ManyToManyField(ListarTarefa, related_name='usuarios', default='valor_padrao')# remover a tarefa dele se ele for excluido
-
-""" 
-class TasksUsuario(models.Model):
-    usuarios = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    tarefa = models.ForeignKey(ListarTarefa, on_delete=models.CASCADE)
-   
-    def __str__(self) -> str:
-        return str(self.usuarios) """
