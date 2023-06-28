@@ -54,11 +54,11 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
-""" 
-class TasksUsuariosView(generics.ListAPIView):
-    serializer_class = TasksUsuariosSerializer
-    lookup_field = 'tarefa'  # Atualize o lookup_field para o campo correto
-    
+class TarefasConcluidasViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
-        tarefa_id = self.kwargs['tarefa']  # Use o nome correto do parâmetro de URL
-        return TasksUsuario.objects.filter(id=tarefa_id)  # Filtrar pelo campo tarefa_id """
+        return ListarTarefa.objects.filter(concluida=True)
+    queryset = ListarTarefa.objects.all()
+    serializer_class = ListarTarefasSerializer
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+

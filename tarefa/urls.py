@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from tarefa.views import ListasTarefasViewSet, UsuarioViewSet, TarefasConcluidasView, ApiRootViewSet
+from tarefa.views import ListasTarefasViewSet, UsuarioViewSet, TarefasConcluidasView, ApiRootViewSet, TarefasConcluidasViewSet
 from rest_framework import routers
 from tarefa.serializer import UsuarioCreateView, UsuariosTarefaView
 
@@ -8,6 +8,7 @@ from tarefa.serializer import UsuarioCreateView, UsuariosTarefaView
 router = routers.DefaultRouter()
 router.register('tasks', ListasTarefasViewSet, basename='Tarefas')
 router.register('usuario', UsuarioViewSet, basename='Usuario')
+router.register('tasks_concluidas',TarefasConcluidasViewSet, basename='tasks_concluidas')
 
 urlpatterns = [
     path('', include(router.urls)),
