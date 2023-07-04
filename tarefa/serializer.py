@@ -1,6 +1,6 @@
 from rest_framework import serializers, generics
 from tarefa.models import ListarTarefa, Usuario
-
+from datetime import date
 
 class ListarTarefasSerializer(serializers.ModelSerializer):
     
@@ -57,3 +57,25 @@ class UsuariosTarefaView(generics.ListAPIView):
         
         else:
             return Usuario.objects.all()
+
+
+class TarefaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ListarTarefa
+        fields = ['tasks', 'vencimento']
+
+class TarefasProximasVencimentoAPIView(generics.ListAPIView):
+    serializer_class = TarefaSerializer
+
+    def get_queryset(self):
+        hoje = date.today()
+        queryset = ListarTarefa.objects.filter(vencimento__gte=hoje)
+        return queryset
+
+class TarefasVencidasAPIView(generics.ListAPIView):
+    serializer_class = TarefaSerializer
+
+    def get_queryset(self):
+        hoje = date.today()
+        queryset = ListarTarefa.objects.filter(vencimento__lt=hoje)
+        return queryset

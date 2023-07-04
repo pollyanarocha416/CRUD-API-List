@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from tarefa.views import ListasTarefasViewSet, UsuarioViewSet, TarefasConcluidasView, ApiRootViewSet, TarefasConcluidasViewSet
 from rest_framework import routers
-from tarefa.serializer import UsuarioCreateView, UsuariosTarefaView
+from tarefa.serializer import UsuarioCreateView, UsuariosTarefaView, TarefasProximasVencimentoAPIView, TarefasVencidasAPIView
 
 
 router = routers.DefaultRouter()
@@ -17,4 +17,6 @@ urlpatterns = [
     path('tasks/<int:tarefa_id>/usuarios/', UsuariosTarefaView.as_view(), name='usuarios_tarefa'),
     path('', ApiRootViewSet.as_view({'get': 'list'}), name='api-root'),
 #    path('tarefas/concluidas/', TarefasConcluidasView.as_view(), name='tarefas-concluidas'),
+    path('tasks/proximas-vencimento/', TarefasProximasVencimentoAPIView.as_view(), name='tarefas_proximas_vencimento'),
+    path('tasks/vencidas/', TarefasVencidasAPIView.as_view(), name='tarefas_vencidas'),
 ]

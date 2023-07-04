@@ -72,3 +72,4 @@ class TarefasConcluidasViewSet(viewsets.ModelViewSet):
     serializer_class = ListarTarefasSerializer
     authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]
+
